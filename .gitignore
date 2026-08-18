@@ -3,3 +3,5 @@
 __pycache__/
 *.pyc
 .grok/skills/**/scripts/__pycache__/
+.claude/skills/**/scripts/__pycache__/
+.claude/settings.local.json

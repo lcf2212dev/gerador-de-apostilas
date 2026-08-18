@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(python3 .claude/skills/apostila/scripts/contexto_aula.py:*)",
+      "Bash(python3 .claude/skills/apostila/scripts/montar.py:*)",
+      "Bash(python3 .claude/skills/apostila/scripts/estimar_tempo.py:*)",
+      "Bash(python3 .claude/skills/apostila/scripts/fechar_aula.py:*)",
+      "Bash(bash .claude/skills/apostila/scripts/gerar_pdf.sh:*)",
+      "Bash(python3 .claude/skills/questoes-banca/scripts/validar_questoes.py:*)",
+      "Bash(python3 .claude/skills/videos-aula/scripts/yt.py:*)",
+      "Bash(python3 .claude/skills/flashcards-anki/scripts/anki_import.py:*)",
+      "Bash(python3 .claude/skills/curso-completo/scripts/progresso.py:*)",
+      "Bash(python3 .claude/skills/montar-sumario/scripts/sumario.py:*)",
+      "Bash(python3 .claude/skills/montar-sumario/scripts/testes/test_sumario.py:*)",
+      "Bash(python3 .claude/skills/mapear-conteudo/scripts/grafo.py:*)",
+      "Bash(.venv/bin/python .claude/skills/qconcursos/scripts/qc.py:*)",
+      "Bash(.venv/bin/python .claude/skills/pci-concursos/scripts/pci.py:*)"
+    ]
+  }
+}

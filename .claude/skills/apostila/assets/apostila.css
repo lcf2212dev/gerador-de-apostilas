@@ -1,0 +1,1009 @@
+/* ==========================================================================
+   APOSTILA — folha de estilo print-first
+   Fonte única da verdade visual. Embutida no HTML final por montar.py.
+   Regra mestra: o branco domina. Cor só em filetes, ícones e fundos <= 8%.
+   ========================================================================== */
+
+/* --- 1. Página ----------------------------------------------------------- */
+
+@page {
+  size: A4;
+  margin: 16mm;
+}
+
+/* Renderizadores com suporte a margin boxes (WeasyPrint, Prince).
+   O Chrome ignora silenciosamente — a paginação vem do diálogo de impressão. */
+@page {
+  @bottom-right { content: counter(page); font: 8pt "Noto Sans", Arial, sans-serif; color: #6B7280; }
+}
+
+/* --- 2. Tokens ----------------------------------------------------------- */
+
+:root {
+  --azul-tinta:  #0B3C5D;
+  --azul:        #14639E;
+  --azul-claro:  #7FA9C6;
+  --azul-tint:   #E9F2F8;
+
+  --verde-fundo: #0E6B4F;
+  --verde:       #12805C;
+  --verde-claro: #8FBFAD;
+  --verde-tint:  #E8F3EE;
+
+  --ambar:       #9A5B00;
+  --ambar-tint:  #FBF3E6;
+
+  --texto:       #111827;
+  --texto-suave: #4B5563;
+  --legenda:     #6B7280;
+  --filete:      #D9E1E8;
+  --papel:       #FFFFFF;
+
+  --col-texto:   156mm;   /* coluna de leitura (~83 caracteres/linha), centrada na folha útil de 178mm */
+
+  --serif: "Noto Serif", "Liberation Serif", Georgia, "Times New Roman", serif;
+  --sans:  "Noto Sans", "Liberation Sans", Arial, Helvetica, sans-serif;
+}
+
+/* --- 3. Reset e base ----------------------------------------------------- */
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--texto);
+  font-family: var(--serif);
+  font-size: 10.5pt;
+  line-height: 1.5;
+  text-align: left;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+p { margin: 0 0 1em; orphans: 3; widows: 3; }
+p + p { text-indent: 0; }
+
+strong { font-weight: 700; color: var(--azul-tinta); }
+em { font-style: italic; }
+abbr { text-decoration: none; border-bottom: 1px dotted var(--azul-claro); }
+a { color: var(--azul); text-decoration: none; }
+code, kbd, samp { font-family: "DejaVu Sans Mono", "Liberation Mono", monospace; font-size: max(0.88em, 8pt); }
+
+/* Realce de termo-chave: tinta leve, legível em preto-e-branco. */
+mark.termo {
+  background: var(--verde-tint);
+  color: var(--verde-fundo);
+  font-weight: 600;
+  padding: 0.06em 0.1em;
+  border-radius: 2px;
+  /* mantém o realce inteiro quando o termo quebra entre duas linhas */
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* --- 4. Layout: coluna de leitura centrada na folha útil ----------------- */
+
+.corpo {
+  max-width: var(--col-texto);
+  margin: 0 auto;
+}
+
+/* Gancho do montar.py: coluna encostada à esquerda, faixa livre à direita para anotações. */
+body.com-margem .corpo,
+body.com-margem .pagina,
+body.com-margem .cabecalho-aula { margin-left: 0; }
+
+/* --- 5. Cabeçalho da aula ------------------------------------------------ */
+
+.cabecalho-aula {
+  max-width: var(--col-texto);
+  margin: 0 auto 8mm;
+  padding: 0 0 4.5mm;
+  border-bottom: 0.4mm solid var(--filete);
+  break-after: avoid;
+}
+
+.cabecalho-aula .faixa {
+  height: 2.2mm;
+  background: linear-gradient(to right, var(--azul-tinta) 0%, var(--azul) 45%, var(--verde) 100%);
+  margin-bottom: 4.5mm;
+  border-radius: 1mm;
+}
+
+.cabecalho-aula .linha-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--azul);
+  margin-bottom: 2mm;
+}
+
+.cabecalho-aula .linha-superior .aula-num { color: var(--verde-fundo); }
+
+.cabecalho-aula h1 {
+  font-family: var(--sans);
+  font-size: 19pt;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--azul-tinta);
+  margin: 0 0 1.5mm;
+}
+
+.cabecalho-aula .subtitulo {
+  font-family: var(--sans);
+  font-size: 9.5pt;
+  color: var(--texto-suave);
+  margin: 0;
+}
+
+/* --- 6. Objetivos e pré-requisitos --------------------------------------- */
+
+.objetivos, .pre-requisitos {
+  border-left: 1.1mm solid var(--verde);
+  background: var(--verde-tint);
+  padding: 4mm 5mm 3.6mm;
+  margin: 0 0 5mm;
+  break-inside: avoid;
+}
+
+.pre-requisitos {
+  border-left-color: var(--azul-claro);
+  background: var(--azul-tint);
+}
+
+.objetivos h2, .pre-requisitos h2 {
+  font-family: var(--sans);
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--verde-fundo);
+  margin: 0 0 2mm;
+  padding: 0;
+  border: 0;
+  counter-increment: none;
+}
+.pre-requisitos h2 { color: var(--azul-tinta); }
+.objetivos h2::before, .pre-requisitos h2::before { content: none; }
+
+.objetivos ul, .pre-requisitos ul {
+  margin: 0;
+  padding-left: 4.5mm;
+  font-size: 10pt;
+}
+.objetivos li, .pre-requisitos li { margin-bottom: 1.4mm; }
+.objetivos li::marker { color: var(--verde); }
+.pre-requisitos li::marker { color: var(--azul); }
+
+/* --- 7. Mapa da aula ----------------------------------------------------- */
+
+.mapa-aula {
+  border: 0.3mm solid var(--filete);
+  border-top: 1.1mm solid var(--azul-tinta);
+  padding: 4mm 5mm 3.6mm;
+  margin: 0 0 7mm;
+  break-inside: avoid;
+}
+
+.mapa-aula h2 {
+  font-family: var(--sans);
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--azul-tinta);
+  margin: 0 0 2.4mm;
+  padding: 0;
+  border: 0;
+  counter-increment: none;
+  display: block;
+}
+.mapa-aula h2::before { content: none; }
+
+.mapa-aula ol { list-style: none; margin: 0; padding: 0; counter-reset: mapa; }
+
+.mapa-aula li {
+  counter-increment: mapa;
+  font-family: var(--sans);
+  font-size: 9pt;
+  padding: 1.4mm 0;
+  border-bottom: 0.2mm dotted var(--filete);
+  display: flex;
+  gap: 3mm;
+}
+.mapa-aula li:last-child { border-bottom: 0; }
+
+.mapa-aula li::before {
+  content: counter(mapa);
+  flex: 0 0 5.5mm;
+  font-weight: 700;
+  color: var(--verde);
+  text-align: right;
+}
+
+/* --- 8. Seções ----------------------------------------------------------- */
+
+.corpo { counter-reset: secao; }
+
+h2 {
+  counter-increment: secao;
+  font-family: var(--sans);
+  font-size: 14pt;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--azul-tinta);
+  margin: 10mm 0 4mm;
+  padding-bottom: 1.8mm;
+  border-bottom: 0.35mm solid var(--filete);
+  display: flex;
+  align-items: baseline;
+  gap: 3mm;
+  break-after: avoid;
+  break-inside: avoid;
+}
+
+h2::before {
+  content: counter(secao);
+  flex: 0 0 7mm;
+  width: 7mm;
+  height: 7mm;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--azul-tinta);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 9.5pt;
+  line-height: 1;
+  font-weight: 700;
+}
+
+/* Título de seção que não entra na numeração nem no mapa da aula. */
+h2.sem-numero {
+  counter-increment: none;
+  display: block;
+}
+h2.sem-numero::before { content: none; }
+
+h3 {
+  font-family: var(--sans);
+  font-size: 11.5pt;
+  font-weight: 700;
+  color: var(--verde-fundo);
+  margin: 7mm 0 2.4mm;
+  break-after: avoid;
+}
+
+h4 {
+  font-family: var(--sans);
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: var(--texto);
+  margin: 4.5mm 0 1.5mm;
+  break-after: avoid;
+}
+
+ul, ol { margin: 0 0 1em; padding-left: 6.5mm; }
+li { margin-bottom: 1.8mm; }
+li::marker { color: var(--azul); font-weight: 700; }
+ul ul, ol ol, ul ol, ol ul { margin-top: 0.9mm; margin-bottom: 0; }
+
+/* --- 9. Caixas de destaque ----------------------------------------------- */
+
+.box {
+  break-inside: avoid;
+  margin: 5.5mm 0;
+  padding: 4.5mm 5.5mm 4mm;
+  border: 0.3mm solid var(--filete);
+  border-left: 1.1mm solid var(--azul);
+  background: var(--azul-tint);
+  font-size: 9.5pt;
+}
+
+.box > :last-child { margin-bottom: 0; }
+
+.box > h4 {
+  font-family: var(--sans);
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--azul-tinta);
+  margin: 0 0 1.6mm;
+  padding-left: 6.6mm;
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+  background-size: 4.8mm 4.8mm;
+  min-height: 4.8mm;
+  line-height: 4.8mm;
+}
+
+/* Ícones: SVG monocromático embutido. Nada de emoji — emoji depende de fonte
+   instalada e sai borrado ou cinza-chapado na impressora. */
+
+.box.chave > h4 {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B3C5D' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2.5a6.5 6.5 0 0 0-3.8 11.8V17h7.6v-2.7A6.5 6.5 0 0 0 12 2.5z'/%3E%3Cpath d='M9.5 20h5'/%3E%3C/svg%3E");
+}
+
+.box.pegadinha {
+  border-left-color: var(--ambar);
+  background: var(--ambar-tint);
+}
+.box.pegadinha > h4 {
+  color: var(--ambar);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239A5B00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z'/%3E%3Cpath d='M12 9v4M12 17h.01'/%3E%3C/svg%3E");
+}
+
+.box.lei {
+  border-left-color: var(--azul-tinta);
+  background: #fff;
+  border-top: 0.3mm solid var(--azul-claro);
+  border-bottom: 0.3mm solid var(--azul-claro);
+  font-family: var(--serif);
+  font-size: 9.5pt;
+  line-height: 1.55;
+}
+.box.lei > h4 {
+  color: var(--azul-tinta);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B3C5D' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 2.5V8h5.5M8.5 13h7M8.5 17h4'/%3E%3C/svg%3E");
+}
+.box.lei p { text-align: justify; }
+
+.box.mnemonico {
+  border-left-color: var(--verde);
+  background: var(--verde-tint);
+}
+.box.mnemonico > h4 {
+  color: var(--verde-fundo);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230E6B4F' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13.5 2 4 13.5h6.5L9.5 22 20 10.5h-7z'/%3E%3C/svg%3E");
+}
+
+/* --- 9b. Blocos didáticos ------------------------------------------------
+   Fazem parte do fluxo do texto, não são sinalização: por isso vêm sem fundo
+   colorido e com filete fino. Não competem com as caixas nem entram no limite
+   de densidade delas. */
+
+.exemplo, .em-outras-palavras {
+  break-inside: avoid;
+  margin: 5mm 0;
+  padding: 0 0 0 5mm;
+  border-left: 0.7mm solid var(--azul-claro);
+  font-size: 10pt;
+}
+
+.exemplo > :last-child, .em-outras-palavras > :last-child { margin-bottom: 0; }
+
+.exemplo::before, .em-outras-palavras::before {
+  display: block;
+  font-family: var(--sans);
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--azul);
+  margin-bottom: 1.2mm;
+}
+
+.exemplo::before { content: "Exemplo"; }
+
+.em-outras-palavras {
+  border-left-color: var(--verde-claro);
+}
+.em-outras-palavras::before {
+  content: "Em outras palavras";
+  color: var(--verde-fundo);
+}
+
+.passo-a-passo {
+  break-inside: avoid;
+  list-style: none;
+  counter-reset: passo;
+  margin: 5mm 0;
+  padding: 0;
+  font-size: 10pt;
+}
+
+.passo-a-passo > li {
+  counter-increment: passo;
+  position: relative;
+  padding-left: 8.5mm;
+  margin-bottom: 2.4mm;
+}
+
+.passo-a-passo > li::before {
+  content: counter(passo);
+  position: absolute;
+  left: 0;
+  top: 0.2mm;
+  width: 5.6mm;
+  height: 5.6mm;
+  border: 0.35mm solid var(--verde);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--verde-fundo);
+  font-family: var(--sans);
+  font-size: 8.5pt;
+  font-weight: 700;
+  line-height: 5.2mm;
+  text-align: center;
+}
+
+.passo-a-passo > li::marker { content: none; }
+
+/* --- 10. Recuperação ativa ----------------------------------------------- */
+
+.pare-responda {
+  break-inside: avoid;
+  margin: 5.4mm 0;
+  padding: 4mm 5mm;
+  border: 0.35mm dashed var(--verde);
+  background: #fff;
+  font-family: var(--sans);
+  font-size: 9.5pt;
+}
+
+.pare-responda h4 {
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--verde-fundo);
+  margin: 0 0 1.6mm;
+  padding-left: 6.6mm;
+  min-height: 4.8mm;
+  line-height: 4.8mm;
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+  background-size: 4.8mm 4.8mm;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230E6B4F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01'/%3E%3C/svg%3E");
+}
+
+.pare-responda > :last-child { margin-bottom: 0; }
+
+/* Linhas pautadas para o estudante responder à mão. */
+.pare-responda .linhas {
+  margin-top: 2.4mm;
+  height: 14mm;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0, transparent 7mm,
+    var(--filete) 7mm, var(--filete) 7.2mm
+  );
+}
+
+.checkpoint {
+  break-inside: avoid;
+  margin: 6mm 0 7mm;
+  padding: 3.5mm 5mm;
+  border-top: 0.35mm solid var(--verde-claro);
+  border-bottom: 0.35mm solid var(--verde-claro);
+  background: var(--verde-tint);
+  font-family: var(--sans);
+  font-size: 9pt;
+}
+
+.checkpoint h4 {
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--verde-fundo);
+  margin: 0 0 1.4mm;
+}
+
+.checkpoint ul { list-style: none; margin: 0; padding: 0; }
+.checkpoint li {
+  padding-left: 6.5mm;
+  margin-bottom: 1.4mm;
+  position: relative;
+}
+.checkpoint li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7mm;
+  width: 3.8mm;
+  height: 3.8mm;
+  border: 0.35mm solid var(--verde-fundo);
+  border-radius: 0.5mm;
+  background: #fff;
+}
+
+/* --- 11. Tabelas --------------------------------------------------------- */
+
+.tabela-sintese {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 4mm 0 5mm;
+  font-family: var(--sans);
+  font-size: 9pt;
+  break-inside: avoid;
+}
+
+.tabela-sintese caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--azul-tinta);
+  padding-bottom: 1.6mm;
+}
+
+.tabela-sintese thead th {
+  background: var(--azul-tint);
+  color: var(--azul-tinta);
+  font-weight: 700;
+  text-align: left;
+  padding: 2.4mm 3mm;
+  border-top: 0.8mm solid var(--azul-tinta);
+  border-bottom: 0.35mm solid var(--azul-claro);
+}
+
+.tabela-sintese td {
+  padding: 2.3mm 3mm;
+  border-bottom: 0.25mm solid var(--filete);
+  vertical-align: top;
+}
+
+.tabela-sintese tbody tr:last-child td { border-bottom: 0.5mm solid var(--filete); }
+.tabela-sintese th[scope="row"] {
+  text-align: left;
+  font-weight: 700;
+  color: var(--verde-fundo);
+  padding: 2.3mm 3mm;
+  border-bottom: 0.25mm solid var(--filete);
+  vertical-align: top;
+}
+
+/* --- 12. Quadro-síntese -------------------------------------------------- */
+
+.quadro-sintese {
+  break-inside: avoid;
+  margin: 8mm 0 6mm;
+  padding: 4.5mm 5.5mm 4mm;
+  border: 0.35mm solid var(--azul-claro);
+  border-top: 1.6mm solid var(--azul-tinta);
+  background: #fff;
+}
+
+.quadro-sintese h2 {
+  font-size: 11pt;
+  margin: 0 0 3.2mm;
+  padding: 0;
+  border: 0;
+  color: var(--azul-tinta);
+  counter-increment: none;
+  display: block;
+}
+.quadro-sintese h2::before { content: none; }
+
+.quadro-sintese ul { margin: 0; padding-left: 5mm; font-size: 10pt; }
+.quadro-sintese li { margin-bottom: 1.8mm; }
+.quadro-sintese li::marker { color: var(--verde); }
+
+/* --- 13. Páginas finais: cabeçalho comum --------------------------------- */
+
+.pagina {
+  break-before: page;
+  max-width: var(--col-texto);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pagina > .titulo-pagina {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4mm;
+  margin: 0 0 4.5mm;
+  padding-bottom: 2.2mm;
+  border-bottom: 1.1mm solid var(--azul-tinta);
+  font-family: var(--sans);
+}
+
+.titulo-pagina h2 {
+  font-size: 15pt;
+  font-weight: 700;
+  color: var(--azul-tinta);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  counter-increment: none;
+  display: block;
+}
+.titulo-pagina h2::before { content: none; }
+
+.titulo-pagina .selo {
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--verde-fundo);
+  white-space: nowrap;
+}
+
+/* --- 14. Página de questões ---------------------------------------------- */
+
+.cartao-resposta {
+  break-inside: avoid;
+  margin: 0 0 6mm;
+  padding: 3.5mm 4.5mm 3mm;
+  border: 0.35mm solid var(--filete);
+  background: var(--azul-tint);
+  font-family: var(--sans);
+}
+
+.cartao-resposta h3 {
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--azul-tinta);
+  margin: 0 0 2.4mm;
+}
+
+.cartao-resposta .grade { display: flex; flex-wrap: wrap; gap: 2.2mm 4mm; }
+
+.cartao-resposta .item { display: flex; align-items: center; gap: 1.4mm; }
+.cartao-resposta .item .n {
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--azul-tinta);
+  width: 5.5mm;
+  text-align: right;
+}
+.cartao-resposta .bolha {
+  box-sizing: border-box;
+  width: 5.6mm;
+  height: 5.6mm;
+  border: 0.3mm solid var(--azul-claro);
+  border-radius: 50%;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sans);
+  font-size: 8pt;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--azul);
+}
+
+.questao {
+  break-inside: avoid;
+  margin: 0 0 6mm;
+  padding-left: 9mm;
+  position: relative;
+  font-size: 10pt;
+}
+
+.questao .num {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  width: 6.6mm;
+  height: 6.6mm;
+  background: var(--azul-tinta);
+  color: #fff;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sans);
+  font-size: 9pt;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.questao .enunciado { margin: 0 0 2.2mm; }
+
+.questao .alternativas { list-style: none; margin: 0; padding: 0; }
+
+.questao .alternativas li {
+  display: flex;
+  gap: 2.2mm;
+  margin-bottom: 1.6mm;
+  font-size: 9.5pt;
+  line-height: 1.45;
+}
+
+.questao .alternativas .letra {
+  flex: 0 0 5.2mm;
+  height: 5.2mm;
+  border: 0.3mm solid var(--azul-claro);
+  border-radius: 0.6mm;
+  background: #fff;
+  font-family: var(--sans);
+  font-size: 9pt;
+  font-weight: 700;
+  line-height: 5.2mm;
+  text-align: center;
+  color: var(--azul-tinta);
+}
+
+/* --- 15. Página de gabarito --------------------------------------------- */
+
+.gabarito-resumo {
+  break-inside: avoid;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 5mm;
+  font-family: var(--sans);
+  font-size: 9pt;
+}
+.gabarito-resumo th, .gabarito-resumo td {
+  border: 0.25mm solid var(--filete);
+  text-align: center;
+  padding: 1.8mm 1mm;
+}
+.gabarito-resumo th {
+  background: var(--azul-tint);
+  color: var(--azul-tinta);
+  font-weight: 700;
+}
+.gabarito-resumo td { font-weight: 700; color: var(--verde-fundo); font-size: 10pt; }
+
+.comentario {
+  break-inside: avoid;
+  margin: 0 0 4.5mm;
+  padding: 0 0 3mm 9mm;
+  border-bottom: 0.25mm dotted var(--filete);
+  position: relative;
+  font-size: 9.5pt;
+  line-height: 1.5;
+}
+.comentario:last-of-type { border-bottom: 0; }
+
+.comentario .num {
+  position: absolute;
+  left: 0;
+  top: 0.2mm;
+  width: 6.2mm;
+  height: 6.2mm;
+  border: 0.35mm solid var(--verde-fundo);
+  color: var(--verde-fundo);
+  border-radius: 50%;
+  font-family: var(--sans);
+  font-size: 9pt;
+  font-weight: 700;
+  line-height: 5.8mm;
+  text-align: center;
+  background: #fff;
+}
+
+.comentario .cabeca {
+  font-family: var(--sans);
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: var(--verde-fundo);
+  margin: 0 0 1.2mm;
+  display: flex;
+  gap: 3mm;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+.comentario .cabeca .fonte {
+  font-weight: 400;
+  color: var(--legenda);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.comentario p { margin: 0 0 1mm; }
+.comentario .erros { margin: 1.2mm 0 0; padding-left: 5mm; font-size: 9pt; color: var(--texto-suave); }
+.comentario .erros li { margin-bottom: 0.6mm; }
+.comentario .erros li::marker { color: var(--azul-claro); }
+.comentario .erros b { color: var(--texto); }
+
+/* --- 16. Vídeos ---------------------------------------------------------- */
+
+.videos { margin-top: 6mm; }
+
+.videos > h3 {
+  font-family: var(--sans);
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--azul-tinta);
+  margin: 0 0 1.4mm;
+  padding-bottom: 1.6mm;
+  border-bottom: 0.35mm solid var(--filete);
+}
+
+.videos .nota {
+  font-family: var(--sans);
+  font-size: 8.5pt;
+  color: var(--legenda);
+  margin: 0 0 3mm;
+}
+
+.video {
+  break-inside: avoid;
+  display: flex;
+  gap: 3.4mm;
+  align-items: flex-start;
+  margin: 0 0 3.4mm;
+  padding: 3.2mm 3.6mm;
+  border: 0.3mm solid var(--filete);
+  border-left: 1.1mm solid var(--verde);
+  background: #fff;
+}
+
+.video .qr { flex: 0 0 18mm; }
+.video .qr svg, .video .qr img { width: 18mm; height: 18mm; display: block; }
+.video .qr .sem-qr {
+  width: 18mm; height: 18mm;
+  border: 0.3mm dashed var(--filete);
+  border-radius: 1mm;
+}
+
+.video .dados { flex: 1 1 auto; min-width: 0; }
+
+.video .titulo {
+  font-family: var(--sans);
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: var(--azul-tinta);
+  margin: 0 0 0.8mm;
+  line-height: 1.3;
+}
+
+.video .meta {
+  font-family: var(--sans);
+  font-size: 8.5pt;
+  color: var(--legenda);
+  margin: 0 0 1.2mm;
+}
+.video .meta .canal { color: var(--verde-fundo); font-weight: 700; }
+
+.video .porque { font-size: 9.5pt; margin: 0 0 1.2mm; line-height: 1.45; }
+
+.video .link {
+  font-family: "DejaVu Sans Mono", monospace;
+  font-size: 8pt;
+  color: var(--azul);
+  word-break: break-all;
+}
+
+/* --- 17. Flashcards recortáveis ------------------------------------------ */
+
+.flashcards { margin-top: 1mm; }
+
+.flashcards .instrucao {
+  font-family: var(--sans);
+  font-size: 9pt;
+  color: var(--texto-suave);
+  background: var(--azul-tint);
+  border-left: 1.1mm solid var(--azul);
+  padding: 3mm 4mm;
+  margin: 0 0 4.5mm;
+}
+.flashcards .instrucao code { font-size: 9pt; color: var(--azul-tinta); }
+
+.card-corte {
+  break-inside: avoid;
+  display: flex;
+  margin: 0 0 4mm;
+  border: 0.35mm dashed var(--azul-claro);
+  min-height: 30mm;
+}
+
+.card-corte .frente, .card-corte .verso {
+  flex: 1 1 50%;
+  padding: 3.5mm 4mm;
+  min-width: 0;
+}
+
+.card-corte .frente {
+  border-right: 0.35mm dashed var(--azul-claro);
+  background: var(--azul-tint);
+}
+
+.card-corte .rotulo {
+  font-family: var(--sans);
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--azul);
+  margin: 0 0 1.2mm;
+}
+.card-corte .verso .rotulo { color: var(--verde-fundo); }
+
+.card-corte p { font-size: 9.5pt; line-height: 1.45; margin: 0 0 1.2mm; }
+.card-corte .extra {
+  font-size: 8.5pt;
+  color: var(--legenda);
+  font-family: var(--sans);
+  margin: 1.4mm 0 0;
+}
+.card-corte cloze, .card-corte .cloze {
+  background: var(--verde-tint);
+  color: var(--verde-fundo);
+  font-weight: 700;
+  padding: 0 0.6mm;
+  border-radius: 1mm;
+}
+
+/* --- 17b. Fontes consultadas --------------------------------------------- */
+
+.fontes {
+  break-inside: avoid;
+  margin-top: 7mm;
+  padding-top: 2.6mm;
+  border-top: 0.35mm solid var(--filete);
+  font-family: var(--sans);
+  font-size: 8.5pt;
+  color: var(--texto-suave);
+}
+
+.fontes h3 {
+  font-family: var(--sans);
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--azul-tinta);
+  margin: 0 0 1.8mm;
+}
+
+.fontes ol { margin: 0; padding-left: 5mm; }
+.fontes li { margin-bottom: 1.4mm; }
+.fontes li::marker { color: var(--azul-claro); }
+.fontes .url {
+  font-family: "DejaVu Sans Mono", monospace;
+  font-size: 8pt;
+  color: var(--legenda);
+  word-break: break-all;
+}
+
+/* --- 18. Rodapé de identidade -------------------------------------------- */
+
+.rodape-aula {
+  margin-top: 8mm;
+  padding-top: 2.2mm;
+  border-top: 0.3mm solid var(--filete);
+  font-family: var(--sans);
+  font-size: 8.5pt;
+  color: var(--legenda);
+  display: flex;
+  justify-content: space-between;
+  gap: 4mm;
+}
+
+/* --- 19. Pré-visualização em tela ---------------------------------------- */
+
+@media screen {
+  body {
+    background: #E5E9ED;
+    padding: 10mm 0;
+  }
+  .folha {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 16mm;
+    background: var(--papel);
+    box-shadow: 0 1mm 4mm rgba(11, 60, 93, 0.16);
+  }
+  .pagina { border-top: 0.5mm dashed #B9C6D2; padding-top: 10mm; margin-top: 10mm; }
+}
+
+@media print {
+  .folha { width: auto; min-height: 0; margin: 0; padding: 0; box-shadow: none; }
+}

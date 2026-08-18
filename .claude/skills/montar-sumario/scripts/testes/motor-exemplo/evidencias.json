@@ -1,0 +1,204 @@
+{
+  "schema": "grafo-concurso/1",
+  "escopo": {
+    "slug": "motor-exemplo",
+    "rotulo": "Direito Administrativo",
+    "tipo": "disciplina",
+    "banca_alvo": [
+      "FGV"
+    ],
+    "orgaos_alvo": [
+      "TRF"
+    ],
+    "janela": {
+      "de": 2021,
+      "ate": 2026
+    },
+    "perfil": "padrao",
+    "gerado_em": "2026-08-17"
+  },
+  "parametros": {},
+  "fontes": [
+    {
+      "id": "ed-trf-2025",
+      "tipo": "edital",
+      "banca": "FGV",
+      "orgao": "TRF",
+      "ano": 2025,
+      "url": "https://exemplo.test/edital",
+      "acessado_em": "2026-08-17",
+      "status": "ok"
+    },
+    {
+      "id": "pr-trf-2025",
+      "tipo": "prova",
+      "banca": "FGV",
+      "orgao": "TRF",
+      "ano": 2025,
+      "url": "https://exemplo.test/p1",
+      "acessado_em": "2026-08-17",
+      "status": "ok",
+      "n_questoes_escopo": 6
+    },
+    {
+      "id": "pr-tj-2023",
+      "tipo": "prova",
+      "banca": "FGV",
+      "orgao": "TJ",
+      "ano": 2023,
+      "url": "https://exemplo.test/p2",
+      "acessado_em": "2026-08-17",
+      "status": "ok",
+      "n_questoes_escopo": 4
+    }
+  ],
+  "nos": [
+    {
+      "id": "da",
+      "rotulo": "Direito Administrativo",
+      "nivel": "disciplina",
+      "pai": null,
+      "origem": [
+        "edital"
+      ],
+      "mencao": {
+        "ed-trf-2025": "explicita"
+      }
+    },
+    {
+      "id": "da-princ",
+      "rotulo": "Princípios da Administração",
+      "nivel": "topico",
+      "pai": "da",
+      "origem": [
+        "edital",
+        "prova"
+      ],
+      "mencao": {
+        "ed-trf-2025": "explicita"
+      },
+      "custo_h": 1.5
+    },
+    {
+      "id": "da-atos",
+      "rotulo": "Atos administrativos",
+      "nivel": "topico",
+      "pai": "da",
+      "origem": [
+        "edital",
+        "prova"
+      ],
+      "mencao": {
+        "ed-trf-2025": "explicita"
+      },
+      "custo_h": 3
+    },
+    {
+      "id": "da-lic",
+      "rotulo": "Licitações (Lei 14.133)",
+      "nivel": "topico",
+      "pai": "da",
+      "origem": [
+        "edital",
+        "prova"
+      ],
+      "mencao": {
+        "ed-trf-2025": "explicita"
+      },
+      "custo_h": 4
+    }
+  ],
+  "questoes": [
+    {
+      "fonte": "pr-trf-2025",
+      "nos": [
+        "da-atos"
+      ],
+      "peso": 1
+    },
+    {
+      "fonte": "pr-trf-2025",
+      "nos": [
+        "da-atos"
+      ],
+      "peso": 1
+    },
+    {
+      "fonte": "pr-trf-2025",
+      "nos": [
+        "da-atos"
+      ],
+      "peso": 1
+    },
+    {
+      "fonte": "pr-trf-2025",
+      "nos": [
+        "da-lic"
+      ],
+      "peso": 1
+    },
+    {
+      "fonte": "pr-trf-2025",
+      "nos": [
+        "da-lic"
+      ],
+      "peso": 1
+    },
+    {
+      "fonte": "pr-trf-2025",
+      "nos": [
+        "da-princ"
+      ],
+      "peso": 1
+    },
+    {
+      "fonte": "pr-tj-2023",
+      "nos": [
+        "da-lic"
+      ],
+      "peso": 1
+    },
+    {
+      "fonte": "pr-tj-2023",
+      "nos": [
+        "da-lic"
+      ],
+      "peso": 1
+    },
+    {
+      "fonte": "pr-tj-2023",
+      "nos": [
+        "da-lic"
+      ],
+      "peso": 1
+    },
+    {
+      "fonte": "pr-tj-2023",
+      "nos": [
+        "da-princ",
+        "da-atos"
+      ],
+      "peso": 1
+    }
+  ],
+  "arestas": [
+    {
+      "de": "da-princ",
+      "para": "da-atos",
+      "tipo": "prerequisito",
+      "forca": 0.9
+    },
+    {
+      "de": "da-atos",
+      "para": "da-lic",
+      "tipo": "prerequisito",
+      "forca": 0.7
+    }
+  ],
+  "lacunas": [
+    {
+      "o_que": "fixture",
+      "impacto": "dados sintéticos"
+    }
+  ]
+}

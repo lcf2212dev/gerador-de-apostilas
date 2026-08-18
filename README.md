@@ -1,10 +1,13 @@
 # Apostila de concurso
 
 Gera material de estudo a partir do que **cai de verdade**: mapa de incidência →
-sumário → aulas em PDF (25–40 min), com 10 questões estilo banca, vídeos e
+sumário → aulas em PDF (~30 min), com 10 questões estilo banca, vídeos e
 flashcards. Cada aula passa por um segundo agente antes de contar como pronta.
 
 Fale com o Grok na raiz deste repositório. As skills estão em `.grok/skills/`.
+**Via Claude Code:** rode `claude` na raiz — skills e agentes equivalentes em `.claude/`
+(permissões já em `.claude/settings.json`); nos comandos deste README, troque `.grok/`
+por `.claude/`.
 
 ## Uma vez na máquina
 
