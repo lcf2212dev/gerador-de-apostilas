@@ -34,8 +34,8 @@ O briefing completo o subagente extrai com `contexto_aula.py` — não duplique 
 
 ## Política de lotes
 
-- **3 geradores por vez**, depois **3 revisores** nos mesmos diretórios. Diretórios
-  disjuntos; o teto de 3 protege YouTube/QC de rate limit.
+- **16 geradores por vez**, depois **16 revisores** nos mesmos diretórios (ou os
+  que restarem, se o pendente for menor). Diretórios disjuntos.
 - O revisor **não** é filho do gerador (Grok não aninha).
 - Lote novo só depois de geradores **e** revisores voltarem **e** de `progresso.py`
   confirmar no disco.
@@ -45,7 +45,7 @@ O briefing completo o subagente extrai com `contexto_aula.py` — não duplique 
 
 ## Falhas
 
-- Uma FALHA no lote não interrompe as outras duas nem o laço. Registre `seq · FALHA ·
+- Uma FALHA no lote não interrompe as demais nem o laço. Registre `seq · FALHA ·
   motivo` e siga.
 - Terminado o laço principal, **um** único passe de reprocessamento: despache de novo só as
   falhas (o que o subagente deixou no disco vira retomada — ele reaproveita). Falhou de

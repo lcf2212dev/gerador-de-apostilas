@@ -9,7 +9,7 @@ calcula e valida. Skills e agentes vivem em `.grok/`. Modelo: **grok-4.6**.
 | ordem de estudo | `montar-sumario` | `sumarios/<slug>/` |
 | uma aula | `apostila` + `gerador-aula` | `aulas/<disc>/aula-NN-*/` |
 | double-check | `revisar-aula` + `revisor-aula` | fecha a pasta; só o PDF |
-| curso inteiro | `curso-completo` | lotes de 3 geradores, depois 3 revisores |
+| curso inteiro | `curso-completo` | lotes de 16 geradores, depois 16 revisores |
 
 QConcursos: se `.env` tiver `QCONCURSOS_*`, a skill `qconcursos` é a fonte primária
 de incidência classificada. Sem login, web pública. Não imprima a senha.

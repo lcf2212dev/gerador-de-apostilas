@@ -5,8 +5,8 @@ Uma aula fechada deixa só o PDF na pasta. Enquanto as fontes ainda estão no
 disco, a aula é parcial (produção ou review). HTML sozinho não conta.
 
     progresso.py sumarios/<slug>                      # tabela: uma linha por aula
-    progresso.py sumarios/<slug> --pendentes --limite 3   # próximos seqs a despachar
-    progresso.py sumarios/<slug> --pendentes --limite 3 --json  # com slug e diretório
+    progresso.py sumarios/<slug> --pendentes --limite 16   # próximos seqs a despachar
+    progresso.py sumarios/<slug> --pendentes --limite 16 --json  # com slug e diretório
 
 A regra do slug e do diretório vem de contexto_aula.py (skill `apostila`), importado
 como módulo — nada de nome de aula é recalculado aqui.

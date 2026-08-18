@@ -4,7 +4,7 @@ description: >-
   Gera a apostila INTEIRA de um assunto, do zero: varre editais e provas, monta o sumário de
   estudo e produz TODAS as aulas em PDF (25–40 min cada), encadeando as skills
   `mapear-conteudo`, `montar-sumario` e `apostila` — cada aula escrita por um subagente
-  `gerador-aula` e revisada por `revisor-aula`, em lotes de 3. Use quando o usuário disser
+  `gerador-aula` e revisada por `revisor-aula`, em lotes de 16. Use quando o usuário disser
   "gera a apostila completa de X", "curso completo de X", "apostila de X do zero", "todas as
   aulas de X", "monta o material inteiro de X" ou apontar um sumário pedindo que todas as
   aulas sejam escritas. Retoma de onde parou. NÃO use para uma aula isolada ("gera a aula
@@ -90,19 +90,20 @@ E **comece a produção direto**. Não há checkpoint de quantidade — decisão
 conteúdo inteiro é o objetivo, a proteção é a retomada barata (o usuário pode interromper
 quando quiser e reinvocar depois).
 
-### 4. Produção em lotes de 3
+### 4. Produção em lotes de 16
 
 Laço, até `progresso.py` não devolver pendente:
 
 ```bash
-python3 .grok/skills/curso-completo/scripts/progresso.py sumarios/<slug> --pendentes --limite 3 --json
+python3 .grok/skills/curso-completo/scripts/progresso.py sumarios/<slug> --pendentes --limite 16 --json
 ```
 
-1. O comando devolve os próximos 3 seqs com o **diretório exato** de cada um.
-2. Lote A: **3× `spawn_subagent` / `gerador-aula`** na mesma mensagem — diretórios
-   disjuntos. Template em `referencias/orquestracao.md`.
-3. Lote B, **depois que o A voltar**: **3× `revisor-aula`** nos mesmos diretórios.
-   Grok não aninha subagente — o review não sai de dentro do gerador.
+1. O comando devolve os próximos 16 seqs (ou os que restarem) com o **diretório
+   exato** de cada um.
+2. Lote A: **até 16× `spawn_subagent` / `gerador-aula`** na mesma mensagem —
+   diretórios disjuntos. Template em `referencias/orquestracao.md`.
+3. Lote B, **depois que o A voltar**: **até 16× `revisor-aula`** nos mesmos
+   diretórios. Grok não aninha subagente — o review não sai de dentro do gerador.
 4. `progresso.py` de novo — **o disco é prova**. Pasta com só o PDF = pronta;
    fontes ainda lá = parcial. Uma linha por aula; despache o próximo lote.
 5. Falha ou reprovação: registre e siga. No fim, **um** passe de reprocessamento

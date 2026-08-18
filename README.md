@@ -58,7 +58,7 @@ Outros exemplos:
 A segunda invocação **retoma o disco**: não refaz grafo nem aula já aprovada.
 Pode interromper no meio.
 
-Cada lote escreve 3 aulas e depois 3 reviews. Uma aula só fica pronta com PDF
+Cada lote escreve 16 aulas e depois 16 reviews. Uma aula só fica pronta com PDF
 **e** `revisao.json` com `"status": "aprovada"`.
 
 ## Por etapas
@@ -119,7 +119,7 @@ Acompanhar produção:
 
 ```bash
 python3 .grok/skills/curso-completo/scripts/progresso.py sumarios/<slug>
-python3 .grok/skills/curso-completo/scripts/progresso.py sumarios/<slug> --pendentes --limite 3
+python3 .grok/skills/curso-completo/scripts/progresso.py sumarios/<slug> --pendentes --limite 16
 ```
 
 ## Fontes, na mão
