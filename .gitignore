@@ -1,0 +1,5 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.grok/skills/**/scripts/__pycache__/

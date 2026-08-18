@@ -1,0 +1,6 @@
+[project]
+name = "concurso"
+version = "0.1.0"
+description = "Pipeline de apostilas de concurso"
+requires-python = ">=3.11"
+dependencies = ["playwright"]
